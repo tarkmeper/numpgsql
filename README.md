@@ -5,9 +5,9 @@ Array & Numerical computing library based on the popular Python Numpy library fo
 
 To install clone or download and run:
 
-    ~~~~
+    
     make && sudo make install
-    ~~~~
+    
 
 ## TODO
 Nearly everything.  Major items not yet covered:
