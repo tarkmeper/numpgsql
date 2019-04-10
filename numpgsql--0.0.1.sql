@@ -31,6 +31,12 @@ CREATE FUNCTION arcsinh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE L
 CREATE FUNCTION arccosh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'arccosh_v';
 CREATE FUNCTION arctanh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'arctanh_v';
 
+--Rounding functions
+CREATE FUNCTION rint(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'rint_v';
+CREATE FUNCTION floor(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'floor_v';
+CREATE FUNCTION ceil(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'ceil_v';
+CREATE FUNCTION trunc(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'trunc_v';
+
 
 CREATE FUNCTION clip(anyarray, anyelement, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'clip_c';
 
