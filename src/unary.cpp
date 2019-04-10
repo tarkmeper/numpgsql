@@ -49,7 +49,8 @@ template< template <typename T> class F > static Datum _op(PG_FUNCTION_ARGS) {
 }
 
 //Helper function to encapsulate the boiler plate code needed on each function definition.  This is pretty ugly
-//not sure if there is a better way to specificy this.
+//not sure if there is a better way to specificy this using templates that would also allow
+//for potentially inlining.
 #define UNARY_FNC(NAME, OP)		\
 	extern "C" { PG_FUNCTION_INFO_V1(NAME); Datum NAME(PG_FUNCTION_ARGS); }	\
 	template<typename T> struct NAME ## _op{ T operator()(const T& v) const { return (OP); }; typedef T result_type; };	\
@@ -67,4 +68,12 @@ UNARY_FNC(arctan_v, atan( (v) ) );
 UNARY_FNC(degrees_v, ( 180 * v / M_PI ) );
 UNARY_FNC(radians_v, ( v * M_PI / 180 ) );
 UNARY_FNC(unwrap_v, fmod(v, 2* M_PI)  );
+
+//Hyperbolic trig
+UNARY_FNC(sinh_v, sinh( (v) ) );
+UNARY_FNC(cosh_v, cosh( (v) ) );
+UNARY_FNC(tanh_v, tanh( (v) ) );
+UNARY_FNC(arcsinh_v, asinh( (v) ) );
+UNARY_FNC(arccosh_v, acosh( (v) ) );
+UNARY_FNC(arctanh_v, atanh( (v) ) );
 

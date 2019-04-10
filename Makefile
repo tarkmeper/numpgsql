@@ -10,7 +10,8 @@ OBJS = $(patsubst %.cpp, %.o, $(wildcard src/*.cpp)) src/magic.o
 
 REGRESS      = $(wildcard test/*/*.sql)
 
-PG_CPPFLAGS = -O3 -ftree-vectorize -ffast-math -ftree-vectorize  -mavx
+PG_CPPFLAGS = -O3 -ftree-vectorize -ffast-math  -mavx
+PG_LIBS = -lm
 PG_CONFIG = pg_config
 PGXS := $(shell $(PG_CONFIG) --pgxs)
 include $(PGXS)

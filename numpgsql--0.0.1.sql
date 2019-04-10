@@ -23,6 +23,15 @@ CREATE FUNCTION degrees(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE L
 CREATE FUNCTION radians(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'radians_v';
 CREATE FUNCTION unwrap(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'unwrap_v';
 
+-- Hyperbolic trig functions
+CREATE FUNCTION sinh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'sinh_v';
+CREATE FUNCTION cosh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'cosh_v';
+CREATE FUNCTION tanh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'tanh_v';
+CREATE FUNCTION arcsinh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'arcsinh_v';
+CREATE FUNCTION arccosh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'arccosh_v';
+CREATE FUNCTION arctanh(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'arctanh_v';
+
+
 CREATE FUNCTION clip(anyarray, anyelement, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'clip_c';
 
 CREATE FUNCTION minimum(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'minimum_c';
@@ -55,3 +64,13 @@ CREATE AGGREGATE sum(real[]) ( SFUNC = plus, STYPE = real[], INITCOND = '{}' );
 
 -- Other functions
 CREATE FUNCTION sort(v real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'sort';
+
+--Operators
+CREATE OPERATOR + (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = plus );
+CREATE OPERATOR + (LEFTARG = real[], RIGHTARG = real[], PROCEDURE = plus );
+
+CREATE OPERATOR - (LEFTARG = real[], RIGHTARG = real[], PROCEDURE = minus );
+
+CREATE OPERATOR * (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = multiply );
+CREATE OPERATOR * (LEFTARG = real[], RIGHTARG = real[], PROCEDURE = multiply );
+
