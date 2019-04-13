@@ -75,3 +75,12 @@ UNARY_FNC(rint_v, rint( v ) );
 UNARY_FNC(floor_v, floor( v ) );
 UNARY_FNC(ceil_v, ceil( v ) );
 UNARY_FNC(trunc_v, trunc( v ) );
+
+//Exponential Functions
+UNARY_FNC(exp_v, exp( v ) );
+UNARY_FNC(expm1_v, (exp(v) - 1) );
+UNARY_FNC(exp2_v, exp2( v ) );
+UNARY_FNC(log_v, log( v ) );
+UNARY_FNC(log10_v, log10( v ) );
+UNARY_FNC(log2_v, log2( v ) );
+UNARY_FNC(log1p_v, (log( v ) + 1) );
