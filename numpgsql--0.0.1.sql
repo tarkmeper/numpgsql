@@ -69,11 +69,14 @@ CREATE FUNCTION multiply(l real[], r boolean[]) RETURNS real[] LANGUAGE C STRICT
 
 
 -- Vector Aggregate functions
-CREATE FUNCTION avg_arr(l real[]) RETURNS real LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'mean';
-CREATE FUNCTION mean(l real[]) RETURNS real LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'mean';
+CREATE FUNCTION amean(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'amean';
+CREATE FUNCTION avariance(anyarray) RETURNS anyelement  LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'avariance';
+CREATE FUNCTION askew(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'askew';
+CREATE FUNCTION akurtosis(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'akurtosis';
 
-CREATE FUNCTION stdev_arr(l real[]) RETURNS real LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'stdev';
-CREATE FUNCTION std(l real[]) RETURNS real LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'stdev';
+CREATE FUNCTION amin(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'amin';
+CREATE FUNCTION amax(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'amax';
+
 
 
 -- Internal Aggregate Functions

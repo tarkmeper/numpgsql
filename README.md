@@ -30,13 +30,15 @@ Currently supported functions:
     SELECT cos('{5, 1, 6, 4}'::real[]), '{1,3}'::integer[] + 4;
     {0.283662,0.540302,0.96017,-0.653644}, {5, 7}
     ~~~~  
+
 * Basic sorting (sort)
     ~~~~
     SELECT sort('{5, 1, 6, 4}'::integer[])
     { 1, 4, 5, 6 }
     ~~~~  
-* Aggregation (mean, std)    
+
+* Statistical functions across a vector  (amean, astd, askew, amax, amin, akurtosis).  Framework can easily be exstended to support any aggregation supported within C++ Boost accumulator libraries.
     ~~~~
-    SELECT mean('{5, 1, 6, 4}'::integer[])
+    SELECT amean('{5, 1, 6, 4}'::integer[])
     4
     ~~~~  
