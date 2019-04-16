@@ -86,6 +86,8 @@ UNARY_CONST_FNC(minimum_c, (std::min(v, c)) );
 UNARY_CONST_FNC(maximum_c, (std::max(v, c)) );
 UNARY_CONST_FNC(plus_c, (v + c) );
 UNARY_CONST_FNC(multiply_c, (v * c) );
+UNARY_CONST_FNC(minus_c, (v - c) );
+UNARY_CONST_FNC(divide_c, (v / c) );
 
 //Clip C is a special case because the operator takes two parameters so normal simplified templates and
 //macro will not work.

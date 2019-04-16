@@ -59,14 +59,14 @@ CREATE FUNCTION maximum(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT
 CREATE FUNCTION plus(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'plus_c';
 CREATE FUNCTION add(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'plus_c';
 CREATE FUNCTION multiply(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'multiply_c';
+CREATE FUNCTION minus(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'minus_c';
+CREATE FUNCTION divide(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'divide_c';
 
 -- Binary functions
-CREATE FUNCTION plus(l real[], r real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'add';
-CREATE FUNCTION add(l real[], r real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'add';
-CREATE FUNCTION multiply(l real[], r real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'multiplies';
-CREATE FUNCTION minus(l real[], r real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'minus';
-
-CREATE FUNCTION multiply(l real[], r boolean[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'multiplies_ab';
+CREATE FUNCTION plus(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'plus';
+CREATE FUNCTION minus(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'minus';
+CREATE FUNCTION multiply(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'multiply';
+CREATE FUNCTION divide(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'divide';
 
 
 -- Vector Aggregate functions
@@ -100,10 +100,15 @@ CREATE FUNCTION sort(v real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPR
 
 --Operators
 CREATE OPERATOR + (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = plus );
-CREATE OPERATOR + (LEFTARG = real[], RIGHTARG = real[], PROCEDURE = plus );
+CREATE OPERATOR + (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = plus );
 
-CREATE OPERATOR - (LEFTARG = real[], RIGHTARG = real[], PROCEDURE = minus );
+CREATE OPERATOR - (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = minus );
+CREATE OPERATOR - (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = minus );
 
 CREATE OPERATOR * (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = multiply );
-CREATE OPERATOR * (LEFTARG = real[], RIGHTARG = real[], PROCEDURE = multiply );
+CREATE OPERATOR * (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = multiply );
+
+CREATE OPERATOR / (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = divide );
+CREATE OPERATOR / (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = divide );
+
 
