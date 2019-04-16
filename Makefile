@@ -6,7 +6,7 @@ EXTVERSION   = $(shell grep default_version $(EXTENSION).control | sed -e "s/def
 DATA = $(EXTENSION)--$(EXTVERSION).sql
 
 PGFILEDESC = "numpgsql - Scientific Libraries in PG/SQL"
-OBJS = $(patsubst %.cpp, %.o, $(wildcard src/*.cpp)) src/magic.o
+OBJS = $(patsubst %.cpp, %.o, $(wildcard src/*.cpp)) $(patsubst %.cpp, %.o, $(wildcard src/aggregate/*.cpp)) src/magic.o
 
 REGRESS      = $(wildcard test/*/*.sql)
 

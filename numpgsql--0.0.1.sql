@@ -43,6 +43,7 @@ CREATE FUNCTION trunc(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEA
 CREATE FUNCTION exp(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'exp_v';
 CREATE FUNCTION expm1(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'expm1_v';
 CREATE FUNCTION exp2(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'exp2_v';
+
 CREATE FUNCTION log(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'log_v';
 CREATE FUNCTION log10(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'log10_v';
 CREATE FUNCTION log2(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'log2_v';
@@ -69,6 +70,7 @@ CREATE FUNCTION multiply(l real[], r boolean[]) RETURNS real[] LANGUAGE C STRICT
 
 
 -- Vector Aggregate functions
+CREATE FUNCTION asum(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'asum';
 CREATE FUNCTION amean(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'amean';
 CREATE FUNCTION avariance(anyarray) RETURNS anyelement  LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'avariance';
 CREATE FUNCTION askew(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'askew';
@@ -80,7 +82,17 @@ CREATE FUNCTION amax(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LE
 
 
 -- Internal Aggregate Functions
-CREATE AGGREGATE sum(real[]) ( SFUNC = plus, STYPE = real[], INITCOND = '{}' );
+CREATE FUNCTION internal_to_array(internal, anyarray) RETURNS anyarray LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'internal_to_array';
+CREATE FUNCTION internal_to_array_dbl(internal) RETURNS double precision[] LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'internal_to_array';
+
+CREATE FUNCTION sum_int(internal, anyarray) RETURNS internal LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'v_sum';
+CREATE AGGREGATE sum(anyarray) ( SFUNC = sum_int, STYPE = internal, FINALFUNC=internal_to_array, finalfunc_extra );
+
+CREATE FUNCTION avg_int(internal, anyarray) RETURNS internal LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'v_mean';
+CREATE AGGREGATE avg(anyarray) ( SFUNC = avg_int, STYPE = internal, FINALFUNC=internal_to_array, finalfunc_extra );
+
+CREATE FUNCTION skew_int(internal, anyarray) RETURNS internal LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'v_skew';
+CREATE AGGREGATE skew(anyarray) ( SFUNC = skew_int, STYPE = internal, FINALFUNC=internal_to_array_dbl );
 
 
 -- Other functions

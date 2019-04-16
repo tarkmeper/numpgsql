@@ -37,8 +37,14 @@ Currently supported functions:
     { 1, 4, 5, 6 }
     ~~~~  
 
-* Statistical functions across a vector  (amean, astd, askew, amax, amin, akurtosis).  Framework can easily be exstended to support any aggregation supported within C++ Boost accumulator libraries.
+* Statistical functions across a vector  (asum, amean, astd, askew, amax, amin, akurtosis).  Framework can easily be exstended to support any aggregation supported within C++ Boost accumulator libraries.
     ~~~~
     SELECT amean('{5, 1, 6, 4}'::integer[])
     4
     ~~~~  
+
+* Statistical aggregate function (sum, mean, std, skew, max, min):
+    ~~~~
+    SELECT sum(x.a) FROM ( SELECT '{3,5}' as a UNION ALL SELECT '{1,20}'::real[] UNION ALL SELECT '{9,10}'::real[]) x;
+    { 13, 35 }
+    ~~~~
