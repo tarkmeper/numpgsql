@@ -8,7 +8,9 @@ DATA = $(EXTENSION)--$(EXTVERSION).sql
 PGFILEDESC = "numpgsql - Scientific Libraries in PG/SQL"
 OBJS = $(patsubst %.cpp, %.o, $(wildcard src/*.cpp)) $(patsubst %.cpp, %.o, $(wildcard src/aggregate/*.cpp)) src/magic.o
 
-REGRESS      = $(wildcard test/*/*.sql)
+REGRESS  = $(patsubst sql/%.sql, %, $(wildcard sql/*.sql))
+REGRESS_OPTS  = --load-extension=numpgsql
+
 
 PG_CPPFLAGS = -O3 -ftree-vectorize -ffast-math  -mavx
 PG_LIBS = -lm -lstdc++
