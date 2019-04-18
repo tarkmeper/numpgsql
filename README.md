@@ -3,10 +3,10 @@ Array & Numerical computing library based on the popular Python Numpy library fo
 
 ## Requirements
 
-The library makes use of Boost C++ accumulators in order to do many of the statistical functions. On Debian/Ubuntu systems the boost libraries
-can be installed using:
+The library makes use of Boost C++ accumulators in order to do many of the statistical functions. On Debian/Ubuntu systems the boost libraries can be installed using:
+
     ~~~~
-    sudo apt-get install ^Cbboost-all-dev
+    sudo apt-get install libboost-all-dev
     ~~~~
 
 The libary also makes use of templates.  Recent versions of gcc/g++ should have no problem compiling.
