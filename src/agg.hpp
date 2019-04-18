@@ -28,15 +28,6 @@ using namespace boost::accumulators;
 //  for aggregating along an axis.
 /////////////////////////////////////////////////////////////////////////////////////
 
-//Templated functions to switch return basedo on data type. This allows the various aggregate
-//functions to return the appropriate data element.
-template<class T> inline Datum _ret(const T& val) { T::unimplemented_function; return Datum(); }
-template<> inline Datum _ret<double>(const double& val) { PG_RETURN_FLOAT8(val); }
-template<> inline Datum _ret<float>(const float& val) { PG_RETURN_FLOAT4(val); }
-template<> inline Datum _ret<short>(const short& val) { PG_RETURN_INT16(val); }
-template<> inline Datum _ret<int>(const int& val) { PG_RETURN_INT32(val); }
-template<> inline Datum _ret<long>(const long& val) { PG_RETURN_INT64(val); }
-
 //Create an aceclerator for the target function and apply on the dataset.
 template<class V, class T> static Datum _apply(T* ptr, size_t n) {
   accumulator_set<T, features<V> > acc;
@@ -50,6 +41,7 @@ template<class V> static Datum _op(PG_FUNCTION_ARGS) {
     const size_t n = arr_cnt(arr);
     void* ptr = ARR_DATA_PTR(arr);
     switch(type) {
+      case BOOLOID: return _apply<V> ( (bool*)ptr, n);
       case FLOAT4OID: return _apply<V>( (float4*)ptr, n );
       case FLOAT8OID: return _apply<V>( (float8*)ptr, n );
       case INT2OID: return _apply<V>( (int16*)ptr, n );

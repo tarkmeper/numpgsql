@@ -1,6 +1,16 @@
 # numpgsql
 Array & Numerical computing library based on the popular Python Numpy library for Posgres PG/SQL Array types.  Allow for performing scientific and engineering calculations within a Postgres Database.
 
+## Requirements
+
+The library makes use of Boost C++ accumulators in order to do many of the statistical functions. On Debian/Ubuntu systems the boost libraries
+can be installed using:
+    ~~~~
+    sudo apt-get install ^Cbboost-all-dev
+    ~~~~
+
+The libary also makes use of templates.  Recent versions of gcc/g++ should have no problem compiling.
+
 ## Installation
 
 To install clone or download and run:
@@ -10,12 +20,10 @@ To install clone or download and run:
     
 
 ## TODO
-Nearly everything.  Major items not yet covered:
+Many things.  Major items not yet covered:
 * Broadcasting functions
 * Automatic type conversion 
-* API scope
 * Documentation
-* Regression Tests
 * Automated-build process
 * Support for "axis" aggregation functions
 * Integration with numeric library (Eigen/Atlas)

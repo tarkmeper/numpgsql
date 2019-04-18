@@ -1,0 +1,48 @@
+select aall('{}'::integer[]);
+ aall 
+------
+ t
+(1 row)
+
+select aall('{1}'::integer[]);
+ aall 
+------
+ t
+(1 row)
+
+select aall('{0}'::integer[]);
+ aall 
+------
+ f
+(1 row)
+
+select aall('{1,3,5,1}'::integer[]);
+ aall 
+------
+ t
+(1 row)
+
+select aall('{1,3,0,1}'::integer[]);
+ aall 
+------
+ f
+(1 row)
+
+select aall('{{1,3},{0,1}}'::integer[]);
+ aall 
+------
+ f
+(1 row)
+
+select aall('{true}'::boolean[]);
+ aall 
+------
+ t
+(1 row)
+
+select aall('{false}'::boolean[]);
+ aall 
+------
+ f
+(1 row)
+

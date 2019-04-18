@@ -49,8 +49,6 @@ CREATE FUNCTION log10(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEA
 CREATE FUNCTION log2(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'log2_v';
 CREATE FUNCTION log1p(anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'log1p_v';
 
-
-
 CREATE FUNCTION clip(anyarray, anyelement, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'clip_c';
 
 CREATE FUNCTION minimum(anyarray, anyelement) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'minimum_c';
@@ -68,6 +66,9 @@ CREATE FUNCTION minus(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMM
 CREATE FUNCTION multiply(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'multiply';
 CREATE FUNCTION divide(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'divide';
 
+CREATE FUNCTION greater(anyarray, anyarray) RETURNS boolean[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'greater';
+CREATE FUNCTION greater_equal(anyarray, anyarray) RETURNS boolean[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'greater_equal';
+
 
 -- Vector Aggregate functions
 CREATE FUNCTION asum(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'asum';
@@ -80,6 +81,7 @@ CREATE FUNCTION amin(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LE
 CREATE FUNCTION amax(anyarray) RETURNS anyelement LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'amax';
 
 
+CREATE FUNCTION aall(anyarray) RETURNS boolean LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'aall';
 
 -- Internal Aggregate Functions
 CREATE FUNCTION internal_to_array(internal, anyarray) RETURNS anyarray LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'internal_to_array';

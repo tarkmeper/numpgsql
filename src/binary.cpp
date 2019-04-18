@@ -11,22 +11,33 @@ extern "C"  {
 #include <tuple>
 
 // Template to apply operation to all elements in the vector. Takes the appropriate function and
-// applies it to every element in the array.
+// applies it to every element in the array.  It supports operations whose return type does not match
+// input type but assumes both arguments have the same type.
 template< template <class T> class OP, class T >
 static Datum _apply(
-  ArrayType* res_a,
   T* a,
   T* b,
   size_t n
 ) {
-	T* res = (T*) ARR_DATA_PTR(res_a);
+        typedef typename OP<T>::result_type result_type;
+
         OP<T> op;
+        Datum* r = (Datum*)palloc(n * sizeof(Datum));
 	for (unsigned int i = 0; i < n; ++i ) {
-		res[i] = op(a[i], b[i]);
+		r[i] = _ret<result_type>(op(a[i], b[i]));
 	}
+        ArrayType* res_a = construct_array(
+                    r,
+                    n,
+                    oid_type<result_type>(),
+                    sizeof(T),
+                    true,
+                    oid_align<result_type>() );
 	PG_RETURN_POINTER(res_a);
 }
 
+//Enrty point to apply the operation.  This ensures that array a and b
+//are capable of being calculated for this operation
 template<template <class T> class OP> Datum _op(PG_FUNCTION_ARGS) {
   ArrayType* arr_a = PG_GETARG_ARRAYTYPE_P(0);
   ArrayType* arr_b = PG_GETARG_ARRAYTYPE_P(1);
@@ -52,14 +63,14 @@ template<template <class T> class OP> Datum _op(PG_FUNCTION_ARGS) {
 
   void* a = ARR_DATA_PTR(arr_a);
   void* b = ARR_DATA_PTR(arr_b);
-  ArrayType* res = PG_GETARG_ARRAYTYPE_P_COPY(0);
 
   switch(type_a) {
-    case FLOAT4OID: return _apply< OP >(res, (float4*)a, (float4*)b, n );
-    case FLOAT8OID: return _apply< OP >(res, (float8*)a, (float8*)b, n );
-    case INT2OID: return _apply< OP >(res, (int16*)a, (int16*)b, n );
-    case INT4OID: return _apply< OP >(res, (int32*)a, (int32*)b, n );
-    case INT8OID: return _apply< OP >(res, (int64*)a, (int64*)b, n );
+    case BOOLOID: return _apply< OP >((bool*)a, (bool*)b, n);
+    case FLOAT4OID: return _apply< OP >((float4*)a, (float4*)b, n );
+    case FLOAT8OID: return _apply< OP >((float8*)a, (float8*)b, n );
+    case INT2OID: return _apply< OP >((int16*)a, (int16*)b, n );
+    case INT4OID: return _apply< OP >((int32*)a, (int32*)b, n );
+    case INT8OID: return _apply< OP >((int64*)a, (int64*)b, n );
     default:
       elog(ERROR, "Unsupported array type");
       PG_RETURN_NULL();
@@ -79,3 +90,13 @@ BINARY_FNC(minus, std::minus);
 BINARY_FNC(multiply, std::multiplies);
 BINARY_FNC(divide, std::divides);
 //BINARY_FNC(modulus, std::modulus);
+
+BINARY_FNC(equal, std::equal_to);
+BINARY_FNC(greater, std::greater);
+BINARY_FNC(greater_equal, std::greater_equal);
+BINARY_FNC(less, std::less);
+BINARY_FNC(less_equal, std::less_equal);
+BINARY_FNC(not_equal_to, std::not_equal_to);
+
+BINARY_FNC(logical_and, std::logical_and)
+BINARY_FNC(logical_or, std::logical_or)
