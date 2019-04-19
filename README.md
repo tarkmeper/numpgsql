@@ -45,7 +45,15 @@ Currently supported functions:
     {0.283662,0.540302,0.96017,-0.653644}, {5, 7}
     ~~~~  
 
-* Logical functions
+* Logical functions ( and, or etc)
+* Slicing 
+    ~~~~
+    SELECT ARRAY[10,20,30,40,50,60] @ ARRAY[2,2,4,6];
+    { 20, 20, 40, 60 }
+
+    SELECT ARRAY[10,20,30] @ ARRAY[false, true, true];
+    { 20, 30 }
+    ~~~~
 
 * Basic sorting (sort)
     ~~~~
