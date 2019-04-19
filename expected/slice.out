@@ -1,4 +1,10 @@
 -- Integer arrays
+SELECT ARRAY[1,2,3,4,5,6] @ '{}'::integer[];
+ ?column? 
+----------
+ {}
+(1 row)
+
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[1];
  ?column? 
 ----------
@@ -17,6 +23,19 @@ SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[1,1,1,-1,-1];
  {1,1,1,6,6}
 (1 row)
 
+-- Boolean slices
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false, true];
+ ?column? 
+----------
+ {1,2,6}
+(1 row)
+
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[false, false, false, false, false, false];
+ ?column? 
+----------
+ {}
+(1 row)
+
 --Other Types
 SELECT ARRAY['asd', 'fds', 'wef'] @ ARRAY[2, -2, 2];
    ?column?    
@@ -25,9 +44,16 @@ SELECT ARRAY['asd', 'fds', 'wef'] @ ARRAY[2, -2, 2];
 (1 row)
 
 -- out of bounds
+SELECT '{}'::real[] @ ARRAY[1];
+ERROR:  Index entry 1 is out of array bounds
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[10];
 ERROR:  Index entry 10 is out of array bounds
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[0];
 ERROR:  Index entry 0 is out of array bounds
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[-7];
 ERROR:  Index entry -7 is out of array bounds
+--bit array errors
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false];
+ERROR:  Masking array must be same length as input array
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false, true, true];
+ERROR:  Masking array must be same length as input array
