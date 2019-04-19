@@ -114,3 +114,8 @@ CREATE OPERATOR / (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = divide
 CREATE OPERATOR / (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = divide );
 
 
+-- Slice functions
+
+CREATE FUNCTION slice(anyarray, integer[]) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'slice_idx';
+
+CREATE OPERATOR @ (LEFTARG = anyarray, RIGHTARG = integer[], PROCEDURE = slice);

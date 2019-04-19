@@ -1,0 +1,33 @@
+-- Integer arrays
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[1];
+ ?column? 
+----------
+ {1}
+(1 row)
+
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[-1];
+ ?column? 
+----------
+ {6}
+(1 row)
+
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[1,1,1,-1,-1];
+  ?column?   
+-------------
+ {1,1,1,6,6}
+(1 row)
+
+--Other Types
+SELECT ARRAY['asd', 'fds', 'wef'] @ ARRAY[2, -2, 2];
+   ?column?    
+---------------
+ {fds,fds,fds}
+(1 row)
+
+-- out of bounds
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[10];
+ERROR:  Index entry 10 is out of array bounds
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[0];
+ERROR:  Index entry 0 is out of array bounds
+SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[-7];
+ERROR:  Index entry -7 is out of array bounds

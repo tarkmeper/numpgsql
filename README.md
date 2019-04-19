@@ -18,7 +18,11 @@ The libary also makes use of templates.  Recent versions of gcc/g++ should have 
 To install clone or download and run:
     
     make && sudo make install
-    
+
+## Features:
+  * Numeric operations
+  * Advanced array slicing     
+  * Array operations
 
 ## TODO
 Many things.  Major items not yet covered:
