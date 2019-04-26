@@ -1,6 +1,6 @@
 extern "C"  {
 	#include "postgres.h"
-	#include "catalog/pg_type_d.h"
+	#include "catalog/pg_type.h"
 	#include "utils/array.h"
         #include <utils/lsyscache.h>
 	#include "fmgr.h"

@@ -1,6 +1,6 @@
 extern "C"  {
 	#include "postgres.h"
-	#include "catalog/pg_type_d.h"
+	#include "catalog/pg_type.h"
 	#include "utils/array.h"
 	#include "fmgr.h"
 	#include "math.h"
@@ -91,12 +91,12 @@ BINARY_FNC(multiply, std::multiplies);
 BINARY_FNC(divide, std::divides);
 //BINARY_FNC(modulus, std::modulus);
 
-BINARY_FNC(equal, std::equal_to);
-BINARY_FNC(greater, std::greater);
-BINARY_FNC(greater_equal, std::greater_equal);
-BINARY_FNC(less, std::less);
-BINARY_FNC(less_equal, std::less_equal);
-BINARY_FNC(not_equal_to, std::not_equal_to);
+BINARY_FNC(equal_v, std::equal_to);
+BINARY_FNC(greater_v, std::greater);
+BINARY_FNC(greater_equal_v, std::greater_equal);
+BINARY_FNC(less_v, std::less);
+BINARY_FNC(less_equal_v, std::less_equal);
+BINARY_FNC(not_equal_to_v, std::not_equal_to);
 
-BINARY_FNC(logical_and, std::logical_and)
-BINARY_FNC(logical_or, std::logical_or)
+BINARY_FNC(logical_and_v, std::logical_and)
+BINARY_FNC(logical_or_v, std::logical_or)
