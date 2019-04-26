@@ -4,7 +4,7 @@
 //if tehre is some way to disable those symbols.
 extern "C"  {
 	#include "postgres.h"
-	#include "catalog/pg_type_d.h"
+	#include "catalog/pg_type.h"
 	#include "utils/array.h"
 	#include "fmgr.h"
 
