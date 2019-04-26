@@ -12,7 +12,7 @@ REGRESS  = $(patsubst sql/%.sql, %, $(wildcard sql/*.sql))
 REGRESS_OPTS  = --load-extension=numpgsql
 
 
-PG_CPPFLAGS = -O3 -ftree-vectorize -ffast-math  -mavx
+PG_CPPFLAGS = -O3 -ftree-vectorize -ffast-math  -mavx -fPIC
 PG_LIBS = -lm -lstdc++
 SHLIB_LINK = -lm -lstdc++
 PG_CONFIG = pg_config
