@@ -1,4 +1,9 @@
 # numpgsql
+[![Build Status][travis-badge]][travis-link]
+[![MIT License][license-badge]](LICENSE.md)
+
+
+# numpgsql
 Array & Numerical computing library based on the popular Python Numpy library for Posgres PG/SQL Array types.  Allow for performing scientific and engineering calculations within a Postgres Database.
 
 The objective of this extension is to make it possible to run analytics and regressions on the postgres server without pulling what can be large volumes of data to a local clients. 
@@ -74,3 +79,9 @@ Currently supported functions:
     ~~~~
 
 * Logical aggregation functions (all, any)
+
+
+[1]: https://codecov.io/
+[travis-badge]:    https://travis-ci.org/tarkmeper/numpgsql.svg?branch=master
+[travis-link]:     https://travis-ci.org/tarkmeper/numpgsql
+[license-badge]:   https://img.shields.io/badge/license-MIT-007EC7.svg
