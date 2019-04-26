@@ -1,0 +1,29 @@
+language: cpp
+dist: xenial
+
+compiler: 
+  - gcc
+
+services: 
+  - postgresql
+  
+addons: 
+  apt:    
+    sources:
+      - ubuntu-toolchain-r-test
+    packages: 
+      - libboost-all-dev
+      - postgresql-server-dev-10
+      - libpq-dev
+      - gcc-6
+      - g++-6
+  postgresql: "10"
+
+script:    
+    - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
+    - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
+    # Export CC and CXX to tell cmake which compiler to use
+    - export CC=/usr/bin/gcc-6
+    - export CXX=/usr/bin/g++-6	
+    - "make && make install && make installcheck"
+
