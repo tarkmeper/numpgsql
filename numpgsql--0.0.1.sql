@@ -66,8 +66,8 @@ CREATE FUNCTION minus(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMM
 CREATE FUNCTION multiply(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'multiply';
 CREATE FUNCTION divide(anyarray, anyarray) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'divide';
 
-CREATE FUNCTION greater(anyarray, anyarray) RETURNS boolean[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'greater';
-CREATE FUNCTION greater_equal(anyarray, anyarray) RETURNS boolean[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'greater_equal';
+CREATE FUNCTION greater(anyarray, anyarray) RETURNS boolean[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'greater_v';
+CREATE FUNCTION greater_equal(anyarray, anyarray) RETURNS boolean[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'greater_equal_v';
 
 
 -- Vector Aggregate functions
