@@ -1,5 +1,6 @@
 # numpgsql
 [![Build Status][travis-badge]][travis-link]
+[![codecov](https://codecov.io/gh/tarkmeper/numpgsql/branch/master/graph/badge.svg)](https://codecov.io/gh/tarkmeper/numpgsql)
 [![MIT License][license-badge]](LICENSE.md)
 
 
