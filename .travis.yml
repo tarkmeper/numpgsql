@@ -26,7 +26,7 @@ script:
     # Export CC and CXX to tell cmake which compiler to use
     - export CC=/usr/bin/gcc-6
     - export CXX=/usr/bin/g++-6	
-    - chmod a+w src src/aggregate
+    - chmod a+wrx src src/aggregate .. ../.. ../../..
     - "make ccov=yes with_llvm=no && sudo make install with_llvm=no && make installcheck"
     - ls -lrt src/*
     - sudo chmod a+rw src/*.gcda src/aggregate/*.gcda
