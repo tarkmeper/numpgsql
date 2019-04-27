@@ -1,3 +1,6 @@
+#coverage
+.gitignore
+
 # Prerequisites
 *.d
 
@@ -7,6 +10,8 @@
 *.obj
 *.elf
 *.bc
+*.gcno
+*.gcda
 
 # Linker output
 *.ilk

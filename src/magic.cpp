@@ -2,5 +2,5 @@
 #include "fmgr.h"
 
 
-PG_MODULE_MAGIC;
+extern "C" { PG_MODULE_MAGIC; } 
 
