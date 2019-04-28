@@ -29,7 +29,7 @@ script:
     - chmod a+wrx $(find src -type d) .. ../.. ../../..
     - "make ccov=yes with_llvm=no && sudo make install with_llvm=no && make installcheck"
     - ls -lrt src/*
-    - sudo chmod a+rw src/*.gcda src/aggregate/*.gcda
+    - sudo chmod a+rw $(find src -name "*.gcda")
     - lcov --directory . --capture --output-file coverage.info
     - lcov --remove coverage.info '/usr/*' --output-file coverage.info
     - lcov --list coverage.info
