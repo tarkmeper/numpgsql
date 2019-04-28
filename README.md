@@ -11,13 +11,11 @@ The objective of this extension is to make it possible to run analytics and regr
 
 ## Requirements
 
-The library makes use of Boost C++ accumulators in order to do many of the statistical functions. On Debian/Ubuntu systems the boost libraries can be installed using:
-
-    ~~~~
+The library makes use of Boost C++ accumulators in order to do many of the statistical functions. On Debian/Ubuntu systems the boost libraries can be installed using.
+    
     sudo apt-get install libboost-all-dev
-    ~~~~
-
-The libary also makes use of templates.  Recent versions of gcc/g++ should have no problem compiling.
+    
+The libary also makes use of templates and standard libraries.  Using old versions of gcc may be necessary to enable C++11x.
 
 ## Installation
 
@@ -33,25 +31,19 @@ To install clone or download and run:
 ## TODO
 Many things.  Major items not yet covered:
 * Broadcasting functions
-* Automatic type conversion 
+* Type conversion 
 * Documentation
-* Automated-build process
 * Support for "axis" aggregation functions
 * Integration with numeric library (Eigen/Atlas)
-* Advanced slicing
 
-## Documentation
-Most functions support all numeric types (smallint, integer, bigint, real, double). See the file numpgsql--*.sql for the full list of functions.
+## Examples
 
-Currently supported functions:
-
-* Basic math functions (plus, minus, multiply, divide, pow, exp, sqrt, abs, mod, log, etc.). Operator overloading for arithmetic.
+* Basic math functions:
     ~~~~
     SELECT cos('{5, 1, 6, 4}'::real[]), '{1,3}'::integer[] + 4;
     {0.283662,0.540302,0.96017,-0.653644}, {5, 7}
     ~~~~  
 
-* Logical functions ( and, or etc)
 * Slicing 
     ~~~~
     SELECT ARRAY[10,20,30,40,50,60] @ ARRAY[2,2,4,6];
@@ -61,25 +53,35 @@ Currently supported functions:
     { 20, 30 }
     ~~~~
 
-* Basic sorting (sort)
+* Sorting:
     ~~~~
     SELECT sort('{5, 1, 6, 4}'::integer[])
     { 1, 4, 5, 6 }
     ~~~~  
 
-* Statistical functions across a vector  (asum, amean, astd, askew, amax, amin, akurtosis).  Framework can easily be exstended to support any aggregation supported within C++ Boost accumulator libraries.
+* Statistical functions across a vector:
     ~~~~
     SELECT amean('{5, 1, 6, 4}'::integer[])
     4
     ~~~~  
 
-* Statistical aggregate function (sum, mean, std, skew, max, min):
+* Statistical aggregate function:
     ~~~~
     SELECT sum(x.a) FROM ( SELECT '{3,5}' as a UNION ALL SELECT '{1,20}'::real[] UNION ALL SELECT '{9,10}'::real[]) x;
     { 13, 35 }
     ~~~~
 
-* Logical aggregation functions (all, any)
+## Documentation
+
+Most functions support all numeric types (smallint, integer, bigint, real, double). See the file numpgsql--*.sql for the full list of functions.
+  * Logic:
+      * *aall(anyarray)*: Determine if all the elements in the array evaluate to True (non-zero for numeric types). _Todo add support for other non-numeric types.
+  * Slicing: The "@" operator can be used instead of slice function.
+      * *slice(anyarray, int[]):* - Create new array based on elements identified in second param.  Supports negative indexing from end.
+      * *slice(anyarray, boolean[]):* - Create new array based on setting in boolean array.  Boolean array must have same dimensions and size as input array.
+  * Sorting:
+      * *sort(anyarray)* - Sort elements of an array in numeric order.  _Todo add support for non-numeric types_
+      * *reverse(anyarray)* - Reverse order of elements in array.  Supports all array types
 
 
 [1]: https://codecov.io/
