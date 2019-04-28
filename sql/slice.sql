@@ -19,4 +19,5 @@ SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[-7];
 
 --bit array errors
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false];
+SELECT ARRAY[1,2,3,4,5,6] @ '{}'::boolean[];
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false, true, true];

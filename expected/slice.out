@@ -55,5 +55,7 @@ ERROR:  Index entry -7 is out of array bounds
 --bit array errors
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false];
 ERROR:  Masking array must be same length as input array
+SELECT ARRAY[1,2,3,4,5,6] @ '{}'::boolean[];
+ERROR:  Can't use empty array as index
 SELECT ARRAY[1,2,3,4,5,6] @ ARRAY[true, true, false, false, false, true, true];
 ERROR:  Masking array must be same length as input array
