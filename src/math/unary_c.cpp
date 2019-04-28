@@ -4,7 +4,7 @@ extern "C"  {
 	#include "utils/array.h"
 	#include "fmgr.h"
 }
-#include "array.h"
+#include "../array.h"
 
 #include <functional>
 #include <tuple>

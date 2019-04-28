@@ -9,7 +9,7 @@ extern "C"  {
 	#include "fmgr.h"
 
 }
-#include "array.h"
+#include "../array.h"
 
 #include <algorithm>
 #include <functional>

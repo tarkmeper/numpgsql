@@ -5,7 +5,7 @@ extern "C"  {
 	#include "fmgr.h"
 	#include "math.h"
 }
-#include "array.h"
+#include "../array.h"
 
 #include <functional>
 #include <tuple>

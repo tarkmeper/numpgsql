@@ -5,7 +5,7 @@ extern "C"  {
 	#include "fmgr.h"
 	#include "math.h"
 }
-#include "array.h"
+#include "../array.h"
 
 #include <functional>
 #include <tuple>
@@ -98,5 +98,11 @@ BINARY_FNC(less_v, std::less);
 BINARY_FNC(less_equal_v, std::less_equal);
 BINARY_FNC(not_equal_to_v, std::not_equal_to);
 
-BINARY_FNC(logical_and_v, std::logical_and)
-BINARY_FNC(logical_or_v, std::logical_or)
+BINARY_FNC(logical_and_v, std::logical_and);
+BINARY_FNC(logical_or_v, std::logical_or);
+
+//Todo add some way of checking needs c++ 17
+//BINARY_FNC(gcd_v, std::gcd);
+//BINARY_FNC(lcm_v, std::lcm);
+
+

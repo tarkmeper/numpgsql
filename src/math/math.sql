@@ -96,10 +96,6 @@ CREATE AGGREGATE avg(anyarray) ( SFUNC = avg_int, STYPE = internal, FINALFUNC=in
 CREATE FUNCTION skew_int(internal, anyarray) RETURNS internal LANGUAGE C IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'v_skew';
 CREATE AGGREGATE skew(anyarray) ( SFUNC = skew_int, STYPE = internal, FINALFUNC=internal_to_array_dbl );
 
-
--- Other functions
-CREATE FUNCTION sort(v real[]) RETURNS real[] LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'sort';
-
 --Operators
 CREATE OPERATOR + (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = plus );
 CREATE OPERATOR + (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = plus );
@@ -114,10 +110,3 @@ CREATE OPERATOR / (LEFTARG = anyarray, RIGHTARG = anyelement, PROCEDURE = divide
 CREATE OPERATOR / (LEFTARG = anyarray, RIGHTARG = anyarray, PROCEDURE = divide );
 
 
--- Slice functions
-
-CREATE FUNCTION slice(anyarray, integer[]) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'slice_idx';
-CREATE FUNCTION slice(anyarray, boolean[]) RETURNS anyarray LANGUAGE C STRICT IMMUTABLE LEAKPROOF COST 100 PARALLEL SAFE AS '$libdir/numpgsql', 'slice_bit';
-
-CREATE OPERATOR @ (LEFTARG = anyarray, RIGHTARG = integer[], PROCEDURE = slice);
-CREATE OPERATOR @ (LEFTARG = anyarray, RIGHTARG = boolean[], PROCEDURE = slice);
