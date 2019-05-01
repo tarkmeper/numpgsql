@@ -13,16 +13,13 @@ extern "C"  {
 // Template to apply operation to all elements in the vector. Takes the appropriate function and
 // applies it to every element in the array.
 template< class T, T(*FNC)(const T&) > static Datum _apply(PG_FUNCTION_ARGS, ArrayType* val_a) {
-	const auto val = to_c_array<T>( val_a );
+	T* val = (T*)ARR_DATA_PTR( val_a );
 
-	ArrayType* res_a = PG_GETARG_ARRAYTYPE_P_COPY(0);
-	const T* v = std::get<0>(val);
-	T* res = (T*) ARR_DATA_PTR(res_a);
-	const unsigned int elemn = std::get<2>(val);
+	const unsigned int elemn = arr_cnt(val_a);
 	for (unsigned int i = 0; i < elemn; ++i ) {
-		res[i] = FNC(v[i]);
+		val[i] = FNC(val[i]);
 	}
-	PG_RETURN_POINTER(res_a);
+	PG_RETURN_POINTER(val_a);
 }
 
 //Helper function to encapsulate the boiler plate code needed on each function definition.  This is pretty ugly
@@ -32,7 +29,7 @@ template< class T, T(*FNC)(const T&) > static Datum _apply(PG_FUNCTION_ARGS, Arr
 	extern "C" { PG_FUNCTION_INFO_V1(NAME); Datum NAME(PG_FUNCTION_ARGS); }	\
 	template<typename T> inline static T NAME ## _op(const T& v) { return (OP); }	\
 	Datum NAME(PG_FUNCTION_ARGS) {						\
-	ArrayType* val = PG_GETARG_ARRAYTYPE_P(0);				\
+	ArrayType* val = PG_GETARG_ARRAYTYPE_P_COPY(0);				\
 	Oid        type  = ARR_ELEMTYPE(val);					\
 	switch(type) {								\
 		case FLOAT4OID:	return _apply<float, NAME ## _op<float> >(fcinfo, val);		\

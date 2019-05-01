@@ -1,6 +1,30 @@
-SELECT '{1,2}'::integer[] + '{3,4}'::integer[]
+SELECT '{1,2}'::integer[] + '{3,4}'::integer[];
  ?column? 
 ----------
  {4,6}
 (1 row)
 
+-- One operand
+SELECT '{}'::integer[] + 3;
+ ?column? 
+----------
+ {}
+(1 row)
+
+SELECT '{1,2,5}'::integer[] + 3;
+ ?column? 
+----------
+ {4,5,8}
+(1 row)
+
+SELECT '{{1,2},{3,4}}'::integer[] + 3;
+   ?column?    
+---------------
+ {{4,5},{6,7}}
+(1 row)
+
+SELECT '{1,2}'::integer[] + 3.5;
+ERROR:  operator does not exist: integer[] + numeric
+LINE 1: SELECT '{1,2}'::integer[] + 3.5;
+                                  ^
+HINT:  No operator matches the given name and argument types. You might need to add explicit type casts.

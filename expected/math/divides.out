@@ -1,0 +1,20 @@
+SELECT divide('{3,4}'::integer[], '{1,2}'::integer[]);
+ divide 
+--------
+ {3,2}
+(1 row)
+
+--Div by 0
+SELECT divide('{3,4}'::integer[], '{0,0}'::integer[]);
+ERROR:  floating-point exception
+DETAIL:  An invalid floating-point operation was signaled. This probably means an out-of-range result or an invalid operation, such as division by zero.
+--Single value
+SELECT '{{6,9},{3,4}}'::integer[] / 3;
+   ?column?    
+---------------
+ {{2,3},{1,1}}
+(1 row)
+
+SELECT divide('{3,4}'::integer[], 0);
+ERROR:  floating-point exception
+DETAIL:  An invalid floating-point operation was signaled. This probably means an out-of-range result or an invalid operation, such as division by zero.
