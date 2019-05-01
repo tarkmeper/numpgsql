@@ -37,4 +37,4 @@ $(EXTENSION)--$(EXTVERSION).sql: $(wildcard src/*.sql) $(wildcard src/*/*.sql)
 	cat $^  > $@
 
 results_d:
-	mkdir -p results results/math
+	mkdir -p results results/math results/random

@@ -1,0 +1,59 @@
+SELECT random_seed(1);
+ random_seed 
+-------------
+ 
+(1 row)
+
+SELECT random_state(random_state());
+ random_state 
+--------------
+ 
+(1 row)
+
+SELECT random_rand(4);
+                                random_rand                                
+---------------------------------------------------------------------------
+ {0.997184808230266,0.932557361368165,0.128124447772306,0.999040515465274}
+(1 row)
+
+SELECT random_rand(4);
+                                random_rand                                
+---------------------------------------------------------------------------
+ {0.236088976298169,0.396580726162609,0.387910740260561,0.669746040447047}
+(1 row)
+
+SELECT random_seed(1);
+ random_seed 
+-------------
+ 
+(1 row)
+
+SELECT random_rand(4);
+                                random_rand                                
+---------------------------------------------------------------------------
+ {0.997184808230266,0.932557361368165,0.128124447772306,0.999040515465274}
+(1 row)
+
+DO $$
+DECLARE
+   val text;
+   r  text;
+   r1a text;
+   r2 text;
+BEGIN
+SELECT random_state() INTO val;
+SELECT random_rand(4) INTO r;
+RAISE NOTICE '%', r;
+
+SELECT random_rand(4) INTO r1a;
+RAISE NOTICE '%', r1a;
+
+
+PERFORM random_state(val);
+SELECT random_rand(4) INTO r2;
+RAISE NOTICE '%', r2;
+
+END $$;
+NOTICE:  {0.236088976298169,0.396580726162609,0.387910740260561,0.669746040447047}
+NOTICE:  {0.93553907270468,0.846310918344841,0.313273513088747,0.524548162865736}
+NOTICE:  {0.236088976298169,0.396580726162609,0.387910740260561,0.669746040447047}
