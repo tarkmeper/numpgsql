@@ -28,6 +28,8 @@ script:
     - export CXX=/usr/bin/g++-6	
     - chmod a+wrx $(find src -type d) .. ../.. ../../..
     - "make ccov=yes with_llvm=no && sudo make install with_llvm=no && make installcheck"
+    - cat regression.diffs
+    - cat regression.out
     - ls -lrt src/*
     - sudo chmod a+rw $(find src -name "*.gcda")
     - lcov --directory . --capture --output-file coverage.info
