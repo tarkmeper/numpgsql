@@ -76,6 +76,13 @@ Many things.  Major items not yet covered:
 Most functions support all numeric types (smallint, integer, bigint, real, double). See the file numpgsql--*.sql for the full list of functions.
   * Logic:
       * *aall(anyarray)*: Determine if all the elements in the array evaluate to True (non-zero for numeric types). _Todo add support for other non-numeric types.
+  * Random Number Generation:
+      * *random_seed(int)* - Set the random seed for the generator.
+      * *random_state()* - Get the current state of the random number generator
+      * *random_state(text)* - Set the current state of the random number generator
+      * *random_rand(VARIADIC int) - Create an n dimensional [0,1] uniform random number array based on the dimensions specified as input parameters
+      * *random_randn(VARIADIC int) - Create an n dimensional 0 mean, 1 std normally distributed random number array based on the dimensions specified as input parameters
+      * *random_randint(low bigint, high bigint, shape int[]) - Create an n dimensional uniformally distributed random number array based on the dimensions specified in shape.  Low and and high bounds specified by input parameters.
   * Slicing: The "@" operator can be used instead of slice function.
       * *slice(anyarray, int[]):* - Create new array based on elements identified in second param.  Supports negative indexing from end.
       * *slice(anyarray, boolean[]):* - Create new array based on setting in boolean array.  Boolean array must have same dimensions and size as input array.
