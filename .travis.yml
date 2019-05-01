@@ -3,9 +3,6 @@ dist: xenial
 
 compiler: 
   - gcc
-
-services: 
-  - postgresql
   
 addons: 
   apt:    
@@ -13,13 +10,18 @@ addons:
       - ubuntu-toolchain-r-test
     packages: 
       - libboost-all-dev
-      - postgresql-server-dev-10
-      - libpq-dev
       - gcc-6
       - g++-6
       - lcov
-  postgresql: "10"
 
+before_install:
+  - sudo apt-get update
+  - sudo apt-get --yes remove postgresql\*
+  - sudo apt-get install -y postgresql-11 postgresql-client-11 postgresql-server-dev-11 libpq-dev
+  - sudo cp /etc/postgresql/{9.6,11}/main/pg_hba.conf
+  - sudo service postgresql restart 11    
+  - sudo -u postgres psql -c "CREATE ROLE travis SUPERUSER LOGIN";
+  
 script:    
     - sudo ln -s /usr/bin/gcc-6 /usr/local/bin/gcc
     - sudo ln -s /usr/bin/g++-6 /usr/local/bin/g++
@@ -28,11 +30,9 @@ script:
     - export CXX=/usr/bin/g++-6	
     - chmod a+wrx $(find src -type d) .. ../.. ../../..
     - "make ccov=yes with_llvm=no && sudo make install with_llvm=no && make installcheck"
-    - cat regression.diffs
-    - cat regression.out
     - ls -lrt src/*
     - sudo chmod a+rw $(find src -name "*.gcda")
     - lcov --directory . --capture --output-file coverage.info
     - lcov --remove coverage.info '/usr/*' --output-file coverage.info
     - lcov --list coverage.info
-    - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"
+    - bash <(curl -s https://codecov.io/bash) -f coverage.info || echo "Codecov did not collect coverage reports"	
