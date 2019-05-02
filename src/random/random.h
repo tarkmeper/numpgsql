@@ -5,4 +5,13 @@
 
 extern std::mt19937 rgen;
 
+struct ArrDims {
+   int ndims;
+   int* dims;
+   int lbs[MAXDIM];
+   size_t n;
+};
+
+extern ArrDims extract_shape(ArrayType* arr);
+
 #endif

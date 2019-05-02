@@ -1,0 +1,25 @@
+SELECT random_seed(1);
+ random_seed 
+-------------
+ 
+(1 row)
+
+SELECT random_rand(2);
+              random_rand              
+---------------------------------------
+ {0.997184808230266,0.932557361368165}
+(1 row)
+
+SELECT random_rand(2,2);
+                                  random_rand                                  
+-------------------------------------------------------------------------------
+ {{0.128124447772306,0.999040515465274},{0.236088976298169,0.396580726162609}}
+(1 row)
+
+SELECT random_rand();
+ERROR:  function random_rand() does not exist
+LINE 1: SELECT random_rand();
+               ^
+HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+SELECT random_rand(2,2,2,2,2,2,2,2);
+ERROR:  GEN_RAND: Maximum of 4 dimensions in array generation.

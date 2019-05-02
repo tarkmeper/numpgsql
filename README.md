@@ -44,6 +44,12 @@ Many things.  Major items not yet covered:
     {0.283662,0.540302,0.96017,-0.653644}, {5, 7}
     ~~~~  
 
+* Random Number Generation:
+    ~~~~
+    SELECT random_randn(2,2);
+    {{1.58275229197514,-1.04514681044202},{0.25759354129149,-1.959394569747}}
+    ~~~~  
+
 * Slicing 
     ~~~~
     SELECT ARRAY[10,20,30,40,50,60] @ ARRAY[2,2,4,6];

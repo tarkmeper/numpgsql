@@ -45,6 +45,7 @@ template<> inline char oid_align<bool>() { return 'c'; }
 
 //Get param values
 template<class T> inline T get_param(PG_FUNCTION_ARGS, int p)  { T::unimplemented_function; }
+template<> inline bool get_param<bool>(PG_FUNCTION_ARGS, int p) { return PG_GETARG_BOOL(p); }
 template<> inline float get_param<float>(PG_FUNCTION_ARGS, int p) { return PG_GETARG_FLOAT4(p); }
 template<> inline double get_param<double>(PG_FUNCTION_ARGS, int p) { return PG_GETARG_FLOAT8(p); }
 template<> inline short get_param<short>(PG_FUNCTION_ARGS, int p) { return PG_GETARG_INT16(p); }

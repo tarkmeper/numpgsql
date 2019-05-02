@@ -1,0 +1,23 @@
+SELECT random_seed(1);
+ random_seed 
+-------------
+ 
+(1 row)
+
+SELECT random_randint(1,5,'{2}'::integer[]);
+ random_randint 
+----------------
+ {3,5}
+(1 row)
+
+SELECT random_randint(1,5,'{2,2}'::integer[]);
+ random_randint 
+----------------
+ {{4,5},{1,1}}
+(1 row)
+
+-- some error-ish conditions
+SELECT random_randint(5,1,'{2,2}'::integer[]);
+ERROR:  GEN_RANDINT: Cannot have high bound lower then low bound
+SELECT random_randint(1,1,'{2,2}'::integer[]);
+ERROR:  GEN_RANDINT: Cannot have high bound lower then low bound

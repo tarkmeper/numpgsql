@@ -1,0 +1,70 @@
+SELECT random_seed(1);
+ random_seed 
+-------------
+ 
+(1 row)
+
+SELECT random_permute('{}'::integer[]);
+ random_permute 
+----------------
+ {}
+(1 row)
+
+SELECT random_permute('{1,2,3,4,5,6}'::integer[]);
+ random_permute 
+----------------
+ {6,1,4,3,5,2}
+(1 row)
+
+SELECT random_permute('{{1,2,3},{4,5,6}}'::integer[]);
+ERROR:  PERMUTE: Currently only supports 1d arrays
+-- Choice without replacement
+SELECT random_choice('{}'::integer[], '{3}'::integer[], false);
+ERROR:  CHOICE: Input array must ahve at least 1 element
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{3}'::integer[], false);
+ random_choice 
+---------------
+ {5,1,2}
+(1 row)
+
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{2,2}'::integer[], false);
+ random_choice 
+---------------
+ {{5,4},{2,1}}
+(1 row)
+
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{7}'::integer[], false);
+ERROR:  Without replacement target vector cannot be better then input
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{3,2}'::integer[], false);
+ERROR:  Without replacement target vector cannot be better then input
+-- Choice with replacement
+SELECT random_choice('{}'::integer[], '{3}'::integer[], true);
+ERROR:  CHOICE: Input array must ahve at least 1 element
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{3}'::integer[], true);
+ random_choice 
+---------------
+ {2,2,4}
+(1 row)
+
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{2,2}'::integer[], true);
+ random_choice 
+---------------
+ {{2,5},{3,5}}
+(1 row)
+
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{7}'::integer[], true);
+  random_choice  
+-----------------
+ {3,2,4,3,2,3,5}
+(1 row)
+
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{3,2}'::integer[], true);
+    random_choice    
+---------------------
+ {{2,1},{3,4},{5,3}}
+(1 row)
+
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{3,2,4,2,1,2,3}'::integer[], true);
+ERROR:  CHOICE: Multi-dimension array must have less than 6 dimensions has 7
+SELECT random_choice('{1,2,3,4,5}'::integer[], '{{3,2,1,4},{2,1,2,3}}'::integer[], true);
+ERROR:  CHOICE: Size array must be 1d array

@@ -10,3 +10,8 @@ CREATE FUNCTION random_state() RETURNS text LANGUAGE C STRICT COST 100 AS '$libd
 CREATE FUNCTION random_state(text) RETURNS void LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'set_rgen_state';
 
 CREATE FUNCTION random_rand(VARIADIC integer[]) RETURNS double precision[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_rand';
+CREATE FUNCTION random_randn(VARIADIC integer[]) RETURNS double precision[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_randn';
+CREATE FUNCTION random_randint(low bigint, high bigint, integer[]) RETURNS bigint[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_randint';
+
+CREATE FUNCTION random_permute(anyarray) RETURNS anyarray LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'permute';
+CREATE FUNCTION random_choice(anyarray, size int[], replace boolean) RETURNS anyarray LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'choice';
