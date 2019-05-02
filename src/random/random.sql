@@ -18,5 +18,5 @@ CREATE FUNCTION random_choice(anyarray, shape int[], replace boolean) RETURNS an
 
 
 CREATE FUNCTION random_beta(alpha double precision, beta double precision, shape int[]) RETURNS double precision[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_beta';
-CREATE FUNCTION random_binomial(t int, p double precision, shape int[]) RETURNS double precision[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_binomial';
+CREATE FUNCTION random_binomial(t int, p double precision, shape int[]) RETURNS integer[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_binomial';
 

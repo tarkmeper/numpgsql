@@ -78,7 +78,7 @@ RAND_FUNCTION(gen_beta) {
      elog(ERROR, "BETA: Can't have negative alpha/beta parameters");
      PG_RETURN_NULL();
   } else {
-     boost::random::beta_distribution<> dist(alpha, beta);
+     boost::random::beta_distribution<double> dist(alpha, beta);
      return _gen_rand(fcinfo, dist, 2);
   }
 }
@@ -90,7 +90,7 @@ RAND_FUNCTION(gen_binomial) {
      elog(ERROR, "BINOMIAL: Input parameters outside of range");
      PG_RETURN_NULL();
   } else {
-     boost::random::binomial_distribution<> dist(t,p);
+     boost::random::binomial_distribution<int> dist(t,p);
      return _gen_rand(fcinfo, dist, 2);
   }
 }
