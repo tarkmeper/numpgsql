@@ -86,9 +86,11 @@ Most functions support all numeric types (smallint, integer, bigint, real, doubl
       * *random_seed(int)* - Set the random seed for the generator.
       * *random_state()* - Get the current state of the random number generator
       * *random_state(text)* - Set the current state of the random number generator
-      * *random_rand(VARIADIC int) - Create an n dimensional [0,1] uniform random number array based on the dimensions specified as input parameters
-      * *random_randn(VARIADIC int) - Create an n dimensional 0 mean, 1 std normally distributed random number array based on the dimensions specified as input parameters
-      * *random_randint(low bigint, high bigint, shape int[]) - Create an n dimensional uniformally distributed random number array based on the dimensions specified in shape.  Low and and high bounds specified by input parameters.
+      * *random_rand(VARIADIC int)* - Create an n dimensional [0,1] uniform random number array based on the dimensions specified as input parameters
+      * *random_randn(VARIADIC int)* - Create an n dimensional 0 mean, 1 std normally distributed random number array based on the dimensions specified as input parameters
+      * *random_randint(low bigint, high bigint, shape int[])* - Create an n dimensional uniformally distributed random number array based on the dimensions specified in shape.  Low and and high bounds specified by input parameters.
+      * *random_permute(array)* - Returns randomly permuted version of input array
+      * *random_choice(anyarray, shape int[], replace boolean)* - Return randomly selected elements from input array based on shape, with or witout repalcement
   * Slicing: The "@" operator can be used instead of slice function.
       * *slice(anyarray, int[]):* - Create new array based on elements identified in second param.  Supports negative indexing from end.
       * *slice(anyarray, boolean[]):* - Create new array based on setting in boolean array.  Boolean array must have same dimensions and size as input array.
