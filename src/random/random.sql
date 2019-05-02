@@ -14,4 +14,9 @@ CREATE FUNCTION random_randn(VARIADIC integer[]) RETURNS double precision[] LANG
 CREATE FUNCTION random_randint(low bigint, high bigint, integer[]) RETURNS bigint[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_randint';
 
 CREATE FUNCTION random_permute(anyarray) RETURNS anyarray LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'permute';
-CREATE FUNCTION random_choice(anyarray, size int[], replace boolean) RETURNS anyarray LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'choice';
+CREATE FUNCTION random_choice(anyarray, shape int[], replace boolean) RETURNS anyarray LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'choice';
+
+
+CREATE FUNCTION random_beta(alpha double precision, beta double precision, shape int[]) RETURNS double precision[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_beta';
+CREATE FUNCTION random_binomial(t int, p double precision, shape int[]) RETURNS double precision[] LANGUAGE C STRICT COST 100 AS '$libdir/numpgsql', 'gen_binomial';
+

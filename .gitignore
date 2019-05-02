@@ -3,6 +3,10 @@ numpgsql--0.0.1.sql
 
 #coverage
 coverage_info
+regression.diffs
+regression.out
+results/
+
 
 # Prerequisites
 *.d

@@ -1,0 +1,28 @@
+SELECT random_seed(1);
+ random_seed 
+-------------
+ 
+(1 row)
+
+SELECT random_beta(2,3, '{2,3}'::integer[]);
+                                                    random_beta                                                    
+-------------------------------------------------------------------------------------------------------------------
+ {{0.175285250340353,0.197240925500585,0.881228480984027},{0.495397936679039,0.121173507019459,0.249182047453486}}
+(1 row)
+
+SELECT random_beta(-1,3, '{2,3}'::integer[]);
+ERROR:  BETA: Can't have negative alpha/beta parameters
+SELECT random_beta(2,-3, '{2,3}'::integer[]);
+ERROR:  BETA: Can't have negative alpha/beta parameters
+SELECT random_binomial(2,0.5, '{2,3}'::integer[]);
+  random_binomial  
+-------------------
+ {{2,2,1},{2,2,1}}
+(1 row)
+
+SELECT random_binomial(-2,0.5, '{2,3}'::integer[]);
+ERROR:  BINOMIAL: Input parameters outside of range
+SELECT random_binomial(2,3, '{2,3}'::integer[]);
+ERROR:  BINOMIAL: Input parameters outside of range
+SELECT random_binomial(2,-3, '{2,3}'::integer[]);
+ERROR:  BINOMIAL: Input parameters outside of range
