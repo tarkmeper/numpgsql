@@ -7,7 +7,6 @@ extern "C"  {
 #include "../array.h"
 
 #include <boost/random.hpp>
-#include <boost/math/distributions/beta.hpp>
 
 template<class D> static Datum _gen_rand(PG_FUNCTION_ARGS, D& dist, int dim_arr_idx = 0) {
   typedef typename D::result_type T;

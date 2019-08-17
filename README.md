@@ -27,6 +27,9 @@ To install clone or download and run:
   * Numeric operations
   * Advanced array slicing     
   * Array operations
+  * Random distribution generation
+  * Mathematical operations
+  * Logical operations
 
 ## TODO
 Many things.  Major items not yet covered:
@@ -82,6 +85,8 @@ Many things.  Major items not yet covered:
 Most functions support all numeric types (smallint, integer, bigint, real, double). See the file numpgsql--*.sql for the full list of functions.
   * Logic:
       * *aall(anyarray)*: Determine if all the elements in the array evaluate to True (non-zero for numeric types). _Todo add support for other non-numeric types.
+  * Math:
+      * *sin(anyarray)* - Generate the sin value for every element in the array. Result shape matches input shape.
   * Random Number Generation:
       * *random_seed(int)* - Set the random seed for the generator.
       * *random_state()* - Get the current state of the random number generator
@@ -91,6 +96,8 @@ Most functions support all numeric types (smallint, integer, bigint, real, doubl
       * *random_randint(low bigint, high bigint, shape int[])* - Create an n dimensional uniformally distributed random number array based on the dimensions specified in shape.  Low and and high bounds specified by input parameters.
       * *random_permute(array)* - Returns randomly permuted version of input array
       * *random_choice(anyarray, shape int[], replace boolean)* - Return randomly selected elements from input array based on shape, with or witout repalcement
+      * *random_beta(alpha double, beta double, shape int[])* - Return a set of numbers from the beta distribution to match shape.
+      * *random_binomial(t int, p double, shape int[])* - Return a set of numbers drawn from the binomial distribution.
   * Slicing: The "@" operator can be used instead of slice function.
       * *slice(anyarray, int[]):* - Create new array based on elements identified in second param.  Supports negative indexing from end.
       * *slice(anyarray, boolean[]):* - Create new array based on setting in boolean array.  Boolean array must have same dimensions and size as input array.
